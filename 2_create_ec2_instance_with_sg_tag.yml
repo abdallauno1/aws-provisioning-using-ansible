@@ -1,0 +1,21 @@
+---
+ - name: Create ec2 instance/s using SGs ang Tags
+   hosts: localhost
+   connection: local
+   gather_facts: false
+   tasks:
+   - name: Creating ec2 instance (2 instances...)
+     ec2:
+      instance_type: t2.micro
+      image: ami-0e1d30f2c40c4c701
+      count: 2
+      key_name: ec2-key
+      region: us-east-1
+      wait: yes 
+      #group: launch-wizard-1
+      #group_id: sg-0f900c7f0e865ae16
+      #group_id: [ 'sg-0f900c7f0e865ae16']
+      group_id:
+        - sg-0f900c7f0e865ae16
+      instance_tags:
+        Env: test
